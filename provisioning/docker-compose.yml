@@ -1,0 +1,46 @@
+version: '3.8'
+
+volumes:
+  mysql-database:
+  public-storage:
+
+services:
+  php:
+    container_name: ${PHP_CONTAINER_NAME}
+    env_file: ${PHP_CONTEXT_DIR}/.php.env
+    build:
+      context: ${PHP_CONTEXT_DIR}
+      dockerfile: Dockerfile
+    volumes:
+      - ${PHP_VOLUME_DIR}:/var/www
+      - "public-storage:/var/www/storage/app/public"
+  nginx:
+    container_name: ${NGINX_CONTAINER_NAME}
+    ports:
+      - "${NGINX_CONTAINER_PORT}:80"
+    networks:
+      default:
+        aliases:
+          - nginx
+    build:
+      context: ${NGINX_CONTEXT_DIR}
+      dockerfile: Dockerfile
+    volumes:
+      - ${NGINX_VOLUME_DIR}:/var/www
+    depends_on:
+      - php
+  mysql:
+    container_name: ${MYSQL_CONTAINER_NAME}
+    ports:
+      - "${MYSQL_CONTAINER_PORT}:3306"
+    image: mysql:8.0.32
+    tty: true
+    env_file: ./mysql/.mysql.env
+    volumes:
+      - "mysql-database:/var/lib/mysql"
+  redis:
+    image: redis:4.0
+    container_name: ${REDIS_CONTAINER_NAME}
+    ports:
+      - "${REDIS_CONTAINER_PORT}:6379"
+    command: ["redis-server", "--bind", "0.0.0.0", "--port", "6379"]
