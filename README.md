@@ -19,8 +19,9 @@ After that enter container named 'php-psync' using command:
 ```
 docker exec -it {container_id} sh 
 ```
-Later create .env file and copy all values from .env.example than run following commands:
+Later create .env in main folder of project file and copy all values from .env.example than run following commands:
 ```
+composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
 npm run build
