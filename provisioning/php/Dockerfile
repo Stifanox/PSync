@@ -2,7 +2,6 @@ FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    mariadb-client \
     libpng-dev \
     libzip-dev \
     libonig-dev \
@@ -20,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     supervisor \
-    cron
+    cron \
+    libpq-dev
 
 RUN printf "\n" | pecl install redis
 
@@ -32,7 +32,7 @@ RUN yes | pecl install xdebug \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-install mbstring zip exif pcntl pdo_pgsql pgsql
 RUN docker-php-ext-install opcache
 
 RUN docker-php-ext-install ftp
@@ -54,6 +54,11 @@ RUN sudo chmod 777 /var/log/xdebug.log
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
+    export NVM_DIR="$HOME/.nvm" && \
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
+    nvm install --lts
+
 # Set working directory
 WORKDIR /var/www
 
@@ -61,7 +66,6 @@ WORKDIR /var/www
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
-# TODO: dodać instalację npm aby ruszyło
 
 EXPOSE 9000
 CMD ["php-fpm"]

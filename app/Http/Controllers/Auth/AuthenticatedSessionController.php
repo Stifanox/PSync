@@ -14,9 +14,9 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
-        return view('auth.login');
+        return Auth::check() ? redirect('/dashboard'): view('auth.login');
     }
 
     /**
