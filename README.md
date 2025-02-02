@@ -24,6 +24,7 @@ Later create .env in main folder of project file and copy all values from .env.e
 composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
+npm i
 npm run build
 ```
 
