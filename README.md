@@ -7,6 +7,7 @@ PSync - Pomodoro synchronizer for a team. Application helps to manage team focus
 * [ERD Diagram](#erd-diagram)
 * [User logins](#user-logins)
 * [Views](#views)
+* [Main functionality](#main-functionality)
 * [Troubleshooting](#Troubleshooting)
 
 
@@ -74,6 +75,10 @@ Remember to include semicolon when executing query. After that you will be able 
 
 **Clock view:**
 ![img_1.png](readme_images/img_1.png)
+
+## Main functionality
+The functionality that is the core of the application is synchronized clock across all team members. To check the functionality it is advised to open two
+browsers and logged in to different accounts. After that join the same team and check how clock behaves
 
 ## Troubleshooting
 **php artisan key:generate throws file_get_contents(/var/www/.env): Failed to open stream: No such file or directory**
