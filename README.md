@@ -34,6 +34,7 @@ npm i
 npm run build
 ```
 
+Application work on port 43001 i.e. after the setup go to localhost:43001
 ## ERD diagram
 ![Admin Panel](readme_images/ERD.png)
 
@@ -78,7 +79,7 @@ Remember to include semicolon when executing query. After that you will be able 
 
 ## Main functionality
 The functionality that is the core of the application is synchronized clock across all team members. To check the functionality it is advised to open two
-browsers and logged in to different accounts. After that join the same team and check how clock behaves
+browsers and logged in to different accounts. After that join the same team and check how the clock behaves
 
 ## Troubleshooting
 **php artisan key:generate throws file_get_contents(/var/www/.env): Failed to open stream: No such file or directory**
