@@ -7,9 +7,14 @@ PSync - Pomodoro synchronizer for a team. Application helps to manage team focus
 * [ERD Diagram](#erd-diagram)
 * [User logins](#user-logins)
 * [Views](#views)
+* [Troubleshooting](#Troubleshooting)
 
 
 ## Instalation
+***Important***
+
+Read the instruction carefully and do all steps in order that are written. In case of any problems see the [Troubleshooting](#Troubleshooting) section. It should contain solves for problems that might occur when installing application.
+
 To run project go to provisioning folder and run 
 ```
 docker compose up -d
@@ -19,7 +24,7 @@ After that enter container named 'php-psync' using command:
 ```
 docker exec -it {container_id} sh 
 ```
-Later create .env in main folder of project file and copy all values from .env.example than run following commands:
+**Later create .env** in root folder of project file and copy all values from .env.example than run following commands:
 ```
 composer install
 php artisan key:generate
@@ -61,6 +66,7 @@ Remember to include semicolon when executing query. After that you will be able 
 ![img.png](readme_images/user_profile.png)
 
 **Modals:**
+
 ![img.png](readme_images/modal.png)
 
 **Admin view to manage users:**
@@ -68,3 +74,16 @@ Remember to include semicolon when executing query. After that you will be able 
 
 **Clock view:**
 ![img_1.png](readme_images/img_1.png)
+
+## Troubleshooting
+**php artisan key:generate throws file_get_contents(/var/www/.env): Failed to open stream: No such file or directory**
+
+.env file probably doesn't exist in project. Create .env file and copy .env.example content to .env file and try again.
+
+**npm i throws npm: not found**
+
+Error caused by not loading scripts to $PATH system variable. Execute command:
+```
+. ~/.bashrc
+```
+and try again to install npm packages.
